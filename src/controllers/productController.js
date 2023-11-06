@@ -1,32 +1,4 @@
 import Product from '../models/productModel.js';
-/* const products =[
-    {
-        id: 1,
-        name: 'Sagarra',
-        description: 'Manzana',
-        price: 100
-    },
-    {
-        id: 2,
-        name: 'Ikatza',
-        description: 'Carbón',
-        price: 85
-    },
-    {
-        id: 3,
-        name: 'Mujer',
-        description: 'Andria',
-        price: 154
-    },
-    {
-        id: 4,
-        name: 'Hombre',
-        description: 'Gizon',
-        price: 154
-    }
-];
-let nextId = 5; */
-
 
 const getAllProducts =  () => {
     return  Product.find();
