@@ -1,5 +1,5 @@
-
-const products =[
+import Product from '../models/productModel.js';
+/* const products =[
     {
         id: 1,
         name: 'Sagarra',
@@ -25,38 +25,41 @@ const products =[
         price: 154
     }
 ];
-let nextId = 5;
-const getAllProducts = () => {
-    return products;
+let nextId = 5; */
+
+
+const getAllProducts =  () => {
+    return  Product.find();
 }
 
 const getProductById = (id) => {
-    return products.find(product => product.id === id) || null;
+    return Product.findById(id);
 }
 
-const createProduct = (name, description, price) => {
+const createProduct = async(name, description, price) => {
     const newProduct = {
-        id: nextId,
         name,
         description,
         price
     };
-    nextId++;
-    products.push(newProduct);
-    return newProduct;
+    const product =new Product(newProduct);
+    return product.save();
+
 }
 
-const updateProduct = (id, name, description, price) => {
-    const product = products.find(product => product.id === id);
+const updateProduct = async (id, name, description, price) => {
+    const product = await getProductById(id);
     product.name = name;
     product.description = description;
     product.price = price;
+    product.save();
     return product;
 }
 
-const deleteProduct = (id) => {
-    const index = products.findIndex(product => product.id === id);
-    products.splice(index, 1);
+const deleteProduct = async(id) => {
+    const product = await getProductById(id);
+    product.remove();
+    return product;
 }
 
 export default {
