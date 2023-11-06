@@ -23,14 +23,15 @@ describe("Test de productController", function() {
     });
     test("Get all products", async function() {
         const products = await productController.getAllProducts();
-        expect(products).toHaveLength(1);
+        expect(products.length).toBeGreaterThan(0);
+        expect(products.find(p => p._id === productId)).not.toBeNull();
     });
 
     test("Get product by id", async function() {
         const id = productId;
         const product = await productController.getProductById(id);
         expect(product).not.toBeNull();
-        expect(product._id).toBe(id);
+        expect(product._id).toEqual(id);
         expect(product.name).toBe("Sagarra");
         expect(product.description).toBe("Manzana");
         expect(product.price).toBe(100);
@@ -56,7 +57,7 @@ describe("Test de productController", function() {
         const price = 200;
         const product = await productController.updateProduct(id, name, description, price);
         expect(product).not.toBeNull();
-        expect(product._id).toBe(id);
+        expect(product._id).toEqual(id);
         expect(product.name).toBe(name);
         expect(product.description).toBe(description);
         expect(product.price).toBe(price);

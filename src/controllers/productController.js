@@ -58,7 +58,7 @@ const updateProduct = async (id, name, description, price) => {
 
 const deleteProduct = async(id) => {
     const product = await getProductById(id);
-    product.remove();
+    await Product.deleteOne({_id: id});
     return product;
 }
 
