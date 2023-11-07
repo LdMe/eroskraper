@@ -1,4 +1,5 @@
 import Product from "../../src/models/productModel.js";
+import mongoose from "mongoose";
 
 describe("Tests de modelo de producto",() => {
     let id = null;
@@ -6,6 +7,9 @@ describe("Tests de modelo de producto",() => {
     const descripcion="Coges el movris y lo tiras";
     const precio = 5000;
 
+    afterAll(async()=>{
+        await mongoose.disconnect();
+    })
     test("Crear un producto nuevo",async () => {
         const producto = await Product.create({nombre,descripcion,precio});
         expect(producto).not.toBeUndefined();
@@ -50,6 +54,7 @@ describe("Tests de modelo de producto",() => {
         await Product.deleteOne({_id:id});
         const oldProduct = await Product.findOne({_id:id});
         expect(oldProduct).toBeNull();
+
     })
 
 
