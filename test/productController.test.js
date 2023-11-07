@@ -11,7 +11,7 @@ describe("Test de productController", function() {
         const id = 1;
         const product = productController.getProductById(id);
         expect(product).not.toBeNull();
-        expect(product.id).toBe(id);
+        expect(product.id).toEqual(id);
         expect(product.name).toBe("Sagarra");
         expect(product.description).toBe("Manzana");
         expect(product.price).toBe(100);
