@@ -1,4 +1,4 @@
-import productController from "../src/controllers/productController.js";
+import productController from "../../src/controllers/productController.js";
 
 describe("Test de productController", function() {
     let productId = 0;
