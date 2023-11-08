@@ -1,53 +1,62 @@
 import productController from "../../src/controllers/productController.js";
+import db from "../../src/config/db.js";
 
-describe("Test de productController", function() {
+
+describe("Test de productController", function () {
+
     let productId = 0;
-    test("Get all products", function() {
-        const products = productController.getAllProducts();
-        expect(products).toHaveLength(4);
+    beforeAll(async () => {
+        await db;
     });
-
-    test("Get product by id", function() {
-        const id = 1;
-        const product = productController.getProductById(id);
+    test("Create product", async () => {
+        const nombre = "TestCreate";
+        const descripcion = "TestCreate";
+        const precio = 100;
+        const product = await productController.createProduct(nombre, descripcion, precio);
+        console.log(product);
+        productId = product._id;
         expect(product).not.toBeNull();
-        expect(product.id).toEqual(id);
-        expect(product.name).toBe("Sagarra");
-        expect(product.description).toBe("Manzana");
-        expect(product.price).toBe(100);
+        expect(product._id).not.toBeNull();
+        expect(product.nombre).toEqual(nombre);
+        expect(product.descripcion).toEqual(descripcion);
+        expect(product.precio).toEqual(precio);
     });
 
-    test("Create product", function() {
-        const name = "TestCreate";
-        const description = "TestCreate";
-        const price = 100;
-        const product = productController.createProduct(name, description, price);
-        productId = product.id;
-        expect(product).not.toBeNull();
-        expect(product.id).not.toBeNull();
-        expect(product.name).toBe(name);
-        expect(product.description).toBe(description);
-        expect(product.price).toBe(price);
+    test("Get all products", async function () {
+        const products = await productController.getAllProducts();
+        expect(products.length).toBeGreaterThan(0);
+        expect(products.find(p => p._id === productId)).not.toBeNull();
     });
 
-    test("Update product", function() {
+    test("Get product by id", async function () {
         const id = productId;
-        const name = "TestUpdate";
-        const description = "TestUpdate";
-        const price = 200;
-        const product = productController.updateProduct(id, name, description, price);
+        const product = await productController.getProductById(id);
         expect(product).not.toBeNull();
-        expect(product.id).toBe(id);
-        expect(product.name).toBe(name);
-        expect(product.description).toBe(description);
-        expect(product.price).toBe(price);
+        expect(product._id).toEqual(id);
+        expect(product.nombre).toEqual("TestCreate");
+        expect(product.descripcion).toEqual("TestCreate");
+        expect(product.precio).toEqual(100);
     });
 
-    test("Delete product", function() {
+
+    test("Update product", async function () {
         const id = productId;
-        productController.deleteProduct(id);
-        const product = productController.getProductById(id);
+        const nombre = "TestUpdate";
+        const descripcion = "TestUpdate";
+        const precio = 200;
+        const product = await productController.updateProduct(id, nombre, descripcion, precio);
+        expect(product).not.toBeNull();
+        expect(product._id).toEqual(id);
+        expect(product.nombre).toEqual(nombre);
+        expect(product.descripcion).toEqual(descripcion);
+        expect(product.precio).toEqual(precio);
+    });
+
+    test("Delete product", async function () {
+        const id = productId;
+        await productController.deleteProduct(id);
+        const product = await productController.getProductById(id);
         expect(product).toBeNull();
     });
-}
-);
+
+});

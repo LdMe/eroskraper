@@ -1,68 +1,45 @@
+import Product from '../models/productModel.js';
 
-const products =[
-    {
-        id: 1,
-        name: 'Sagarra',
-        description: 'Manzana',
-        price: 100
-    },
-    {
-        id: 2,
-        name: 'Ikatza',
-        description: 'Carbón',
-        price: 85
-    },
-    {
-        id: 3,
-        name: 'Mujer',
-        description: 'Andria',
-        price: 154
-    },
-    {
-        id: 4,
-        name: 'Hombre',
-        description: 'Gizon',
-        price: 154
-    }
-];
-let nextId = 5;
-const getAllProducts = () => {
-    return products;
+const getAllProducts =  () => {
+    return  Product.find();
 }
 
 const getProductById = (id) => {
-    return products.find(product => product.id === id) || null;
+    return Product.findById(id);
 }
 
-const createProduct = (name, description, price) => {
+const createProduct = async(nombre, descripcion, precio) => {
     const newProduct = {
-        id: nextId,
-        name,
-        description,
-        price
+        nombre,
+        descripcion,
+        precio
     };
-    nextId++;
-    products.push(newProduct);
-    return newProduct;
+    const product =new Product(newProduct);
+    await product.save();
+    return product;
+
 }
 
-const updateProduct = (id, name, description, price) => {
-    const product = products.find(product => product.id === id);
-    product.name = name;
-    product.description = description;
-    product.price = price;
+const updateProduct = async (id, nombre, descripcion, precio) => {
+    const product = await getProductById(id);
+    product.nombre = nombre;
+    product.descripcion = descripcion;
+    product.precio = precio;
+    product.save();
     return product;
 }
 
-const deleteProduct = (id) => {
-    const index = products.findIndex(product => product.id === id);
-    products.splice(index, 1);
+const deleteProduct = async(id) => {
+    const product = await getProductById(id);
+    await Product.deleteOne({_id: id});
+    return product;
 }
+
 
 export default {
     getAllProducts,
     getProductById,
     createProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
 }

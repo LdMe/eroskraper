@@ -1,8 +1,8 @@
-version: "3"
+version: '3'
 services:
-  mongo_scraper:
+  mongo:
     image: mongo
-    container_name: mongo_scraper
+    container_name: mongo_eroskraper
     restart: always
     ports:
       - ${DB_PORT}:27017
