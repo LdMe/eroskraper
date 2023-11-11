@@ -45,11 +45,12 @@ describe("Test de productController", function () {
         const descripcion = "TestUpdate";
         const precio = 200;
         const product = await productController.updateProduct(id, nombre, descripcion, precio);
-        expect(product).not.toBeNull();
-        expect(product._id).toEqual(id);
-        expect(product.nombre).toEqual(nombre);
-        expect(product.descripcion).toEqual(descripcion);
-        expect(product.precio).toEqual(precio);
+        const newProduct = await productController.getProductById(id);
+        expect(newProduct).not.toBeNull();
+        expect(newProduct._id).toEqual(id);
+        expect(newProduct.nombre).toEqual(nombre);
+        expect(newProduct.descripcion).toEqual(descripcion);
+        expect(newProduct.precio).toEqual(precio);
     });
 
     test("Delete product", async function () {
