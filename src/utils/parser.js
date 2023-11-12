@@ -17,7 +17,7 @@ class Parser{
     }
     getTitle(item){
         const result = item.querySelector(".product-title");
-        return result.textContent;
+        return result.textContent.trim();
     }
 }
 

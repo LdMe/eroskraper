@@ -16,4 +16,10 @@ describe("Tests del parser de eroski",()=>{
         const itemList = parser.getItems(section);
         expect(itemList.length).toEqual(20); 
     })
+    test("Conseguir el titulo de un producto",()=>{
+        const section = parser.getListSection();
+        const itemList = parser.getItems(section);
+        const title = parser.getTitle(itemList[0]);
+        expect(title).toEqual("Pechuga de pavo en lonchas URKABE, bandeja 135 g");
+    });
 })
