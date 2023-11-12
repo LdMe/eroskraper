@@ -15,6 +15,10 @@ class Parser{
         const resultsArray = Array.from(results);
         return resultsArray;
     }
+    getTitle(item){
+        const result = item.querySelector(".product-title");
+        return result.textContent;
+    }
 }
 
 export default Parser;

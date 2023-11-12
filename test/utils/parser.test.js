@@ -3,7 +3,7 @@ import fs from "fs";
 describe("Tests del parser de eroski",()=>{
     let parser  = null;
     beforeAll(()=>{
-        const html = fs.readFileSync("test/parser/index.html");
+        const html = fs.readFileSync("test/utils/index.html");
         parser = new Parser(html);
     })
     test("Conseguir la seccion general de poductos",()=>{
