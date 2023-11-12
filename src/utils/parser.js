@@ -29,6 +29,17 @@ class Parser{
         const result = item.querySelector(".product-image img");
         return result.src;
     }
+    getProducts(){
+        const section = this.getListSection();
+        const items = this.getItems(section);
+        const products = items.map(item=>{
+            const nombre = this.getTitle(item);
+            const precio = this.getPrice(item);
+            const imagen = this.getImage(item);
+            return {nombre,precio,imagen};
+        })
+        return products;
+    }
 }
 
 export default Parser;

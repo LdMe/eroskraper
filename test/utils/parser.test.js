@@ -36,4 +36,12 @@ describe("Tests del parser de eroski",()=>{
         const image = parser.getImage(itemList[0]);
         expect(image).toEqual("https://supermercado.eroski.es/images/6343933.jpg");
     });
+
+    test("Conseguir un array de productos",()=>{
+        const products = parser.getProducts();
+        expect(products.length).toEqual(20);
+        expect(products[0].nombre).toEqual("Jamón cocido artesano URKABE, sobre 200 g");
+        expect(products[0].precio).toEqual(3.45);
+        expect(products[0].imagen).toEqual("https://supermercado.eroski.es/images/6343933.jpg");
+    })
 })
