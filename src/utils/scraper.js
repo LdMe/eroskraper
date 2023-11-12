@@ -9,5 +9,13 @@ export default class Scraper{
         this.browser = await puppeteer.launch();
         this.isReady = true;
     }
-    
+    async getHtml(url){
+        await this.promise;
+        const page = await this.browser.newPage();
+        await page.goto(url);
+        const html = await page.content();
+        await page.close();
+        return html;
+    }
+
 }

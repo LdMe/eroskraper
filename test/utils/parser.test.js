@@ -20,6 +20,20 @@ describe("Tests del parser de eroski",()=>{
         const section = parser.getListSection();
         const itemList = parser.getItems(section);
         const title = parser.getTitle(itemList[0]);
-        expect(title).toEqual("Pechuga de pavo en lonchas URKABE, bandeja 135 g");
+        expect(title).toEqual("Jamón cocido artesano URKABE, sobre 200 g");
+    })
+
+    test("Conseguir el precio de un producto",()=>{
+        const section = parser.getListSection();
+        const itemList = parser.getItems(section);
+        const price = parser.getPrice(itemList[0]);
+        expect(price).toEqual(3.45);
+    })
+
+    test("Conseguir la imagen de un producto",()=>{
+        const section = parser.getListSection();
+        const itemList = parser.getItems(section);
+        const image = parser.getImage(itemList[0]);
+        expect(image).toEqual("https://supermercado.eroski.es/images/6343933.jpg");
     });
 })

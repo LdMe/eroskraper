@@ -19,6 +19,16 @@ class Parser{
         const result = item.querySelector(".product-title");
         return result.textContent.trim();
     }
+    getPrice(item){
+        const result = item.querySelector(".price-offer-now");
+        const price = result.textContent.trim();
+        const priceNumber = parseFloat(price.replace(",","."));
+        return priceNumber;
+    }
+    getImage(item){
+        const result = item.querySelector(".product-image img");
+        return result.src;
+    }
 }
 
 export default Parser;
