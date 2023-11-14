@@ -8,3 +8,15 @@ services:
       - ${DB_PORT}:27017
     volumes:
       - ./data:/data/db
+    
+  node:
+    build: .
+    container_name: node_eroskraper
+    restart: always
+    ports:
+      - ${APP_PORT}:3000
+    depends_on:
+      - mongo
+    volumes:
+      - .:/app
+      - /app/node_modules

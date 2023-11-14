@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const DB_HOST = process.env.DB_HOST;
-const DB_PORT = process.env.DB_PORT;
+const DB_PORT = 27017;//process.env.DB_PORT;
 const DB_NAME = process.env.DB_NAME;
 
 const uri = `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`;

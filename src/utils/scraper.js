@@ -6,7 +6,10 @@ export default class Scraper{
         this.promise = this.init();
     }
     async init(){
-        this.browser = await puppeteer.launch({headless:true});
+        this.browser = await puppeteer.launch({
+            headless:true,
+            args:["--no-sandbox"]
+        });
         this.isReady = true;
     }
     async close(){

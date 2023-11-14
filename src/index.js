@@ -23,12 +23,13 @@ app.get("/scrap",async (req,res)=>{
         res.json(products); 
     }
     catch(e){
+        console.log(e);
         res.status(500).send("ha habido un error intentando conseguir los datos");
     }
 
 })
 
 
-app.listen(3002,()=>{
+app.listen(3000,()=>{
     console.log("app en marcha en el puerto que sea")
 })
