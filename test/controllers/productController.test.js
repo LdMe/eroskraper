@@ -1,6 +1,6 @@
 import productController from "../../src/controllers/productController.js";
 import db from "../../src/config/db.js";
-
+import Product from "../../src/models/productModel.js";
 
 describe("Test de productController", function () {
 
@@ -10,15 +10,15 @@ describe("Test de productController", function () {
     });
     test("Create product", async () => {
         const nombre = "TestCreate";
-        const descripcion = "TestCreate";
+        const imagen = "TestCreate";
         const precio = 100;
-        const product = await productController.createProduct(nombre, descripcion, precio);
+        const product = await productController.createProduct(nombre, imagen, precio);
         console.log(product);
         productId = product._id;
         expect(product).not.toBeNull();
         expect(product._id).not.toBeNull();
         expect(product.nombre).toEqual(nombre);
-        expect(product.descripcion).toEqual(descripcion);
+        expect(product.imagen).toEqual(imagen);
         expect(product.precio).toEqual(precio);
     });
 
@@ -34,7 +34,7 @@ describe("Test de productController", function () {
         expect(product).not.toBeNull();
         expect(product._id).toEqual(id);
         expect(product.nombre).toEqual("TestCreate");
-        expect(product.descripcion).toEqual("TestCreate");
+        expect(product.imagen).toEqual("TestCreate");
         expect(product.precio).toEqual(100);
     });
 
@@ -42,14 +42,14 @@ describe("Test de productController", function () {
     test("Update product", async function () {
         const id = productId;
         const nombre = "TestUpdate";
-        const descripcion = "TestUpdate";
+        const imagen = "TestUpdate";
         const precio = 200;
-        const product = await productController.updateProduct(id, nombre, descripcion, precio);
+        const product = await productController.updateProduct(id, nombre, imagen, precio);
         const newProduct = await productController.getProductById(id);
         expect(newProduct).not.toBeNull();
         expect(newProduct._id).toEqual(id);
         expect(newProduct.nombre).toEqual(nombre);
-        expect(newProduct.descripcion).toEqual(descripcion);
+        expect(newProduct.imagen).toEqual(imagen);
         expect(newProduct.precio).toEqual(precio);
     });
 
@@ -59,5 +59,13 @@ describe("Test de productController", function () {
         const product = await productController.getProductById(id);
         expect(product).toBeNull();
     });
+
+    test("Scrapear productos y guardar en la base de datos",async function () {
+        await Product.deleteMany({});
+        await productController.scrapProducts();
+        const products = await productController.getAllProducts();
+        expect(products.length).toEqual(20);
+
+    },1000 * 15)
 
 });

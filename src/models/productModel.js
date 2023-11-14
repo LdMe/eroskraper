@@ -3,7 +3,7 @@ import db from "../config/db.js";
 
 const productSchema = new mongoose.Schema({
     nombre: String,
-    descripcion: String,
+    imagen: String,
     precio: Number
 })
 
