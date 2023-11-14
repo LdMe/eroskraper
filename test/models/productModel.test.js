@@ -1,6 +1,7 @@
 import Product from "../../src/models/productModel.js";
 import mongoose from "mongoose";
 
+
 describe("Tests de modelo de producto",() => {
     let id = null;
     const nombre="Aifon";
