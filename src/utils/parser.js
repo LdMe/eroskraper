@@ -1,16 +1,15 @@
 import { JSDOM } from "jsdom";
 
-/**
- * Clase que se encarga de parsear el HTML de la página de eroski y devolver un array de productos
- * @class Parser
- * @property {String} html El html que se va a parsear
- * @property {JSDOM} dom El dom que se va a parsear
- */
+
 
 class Parser {
     /**
      * constructor
      * @param {String} html el html que se va a parsear
+     * @classdesc
+     * Clase que se encarga de parsear el HTML de la página de eroski y devolver un array de productos
+     * @property {String} html El html que se va a parsear
+     * @property {JSDOM} dom El dom que se va a parsear
      */
     constructor(html) {
         this.html = html;

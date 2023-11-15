@@ -10,9 +10,6 @@ import db from "../config/db.js";
  * @property {String} imagen url de la imagen del producto
  * @property {Number} precio precio del producto
  */
-/**
- * @type {mongoose.Schema}
- */
 
 const productSchema = new mongoose.Schema({
     nombre: String,

@@ -10,7 +10,7 @@ import Parser from '../utils/parser.js';
 
 /**
  * 
- * 
+ * Conseguir todos los productos
  * @returns {Promise<Product[]>} Array de productos
  */
 const getAllProducts =  () => {
@@ -19,8 +19,10 @@ const getAllProducts =  () => {
 
 /**
  * Conseguir un producto por id
- * @param {String} id
+ * @param {String} id id del producto
  * @returns {Promise<Product>} Producto
+ * @example 
+ * let product = getProductById(1);
  */
 const getProductById = (id) => {
     return Product.findById(id);
