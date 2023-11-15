@@ -1,0 +1,271 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API eroskraper",
+    "description": "Api del scraper de eroski",
+    "version": "1.0.11"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3006"
+    }
+  ],
+  "tags": [
+    {
+      "name": "product",
+      "description": "Funcionalidades relacionadas con productos"
+    },
+    {
+      "name": "user",
+      "description": "Operaciones de usuario"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "product"
+        ],
+        "summary": "Conseguir productos de la base de datos",
+        "description": "Busca los productos que ya existen en la base de datos",
+        "operationId": "getProducts",
+        "responses": {
+          "200": {
+            "description": "Operación correcta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/scrap": {
+      "post": {
+        "tags": [
+          "product"
+        ],
+        "summary": "Scrapea los productos",
+        "operationId": "scrapProducts",
+        "responses": {
+          "200": {
+            "description": "Operación correcta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Loguearse para conseguir el token jwt",
+        "description": "",
+        "operationId": "loginUser",
+        "requestBody": {
+          "description": "credenciales",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLogin"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLogin"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Operacción correcta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "example": "slkjfhiwueyiu32ohuh"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Credenciales incorrectas"
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Registrarse",
+        "description": "",
+        "operationId": "registerUser",
+        "requestBody": {
+          "description": "credenciales",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRegister"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRegister"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Operacción correcta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "example": "slkjfhiwueyiu32ohuh"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Credenciales incorrectas"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Product": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "id del producto",
+            "example": "wr123231d28731bv817th87"
+          },
+          "nombre": {
+            "type": "string",
+            "description": "nombre o título del producto",
+            "example": "Txorizo pamplona"
+          },
+          "imagen": {
+            "type": "string",
+            "description": "url de la imagen",
+            "example": "https://google.com/imagenes/algo.jpg"
+          },
+          "precio": {
+            "type": "number",
+            "description": "precio del producto",
+            "example": 5.33
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "id del usuario",
+            "example": "wr123231d28731bv817th87"
+          },
+          "email": {
+            "type": "string",
+            "description": "email del usuario",
+            "example": "admin@mail.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "hash de la contraseña",
+            "example": "fsoi8fhoj7eyi8u2j8fu908jiu"
+          }
+        }
+      },
+      "UserLogin": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "email del usuario",
+            "example": "admin@mail.com"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "description": "contraseña"
+          }
+        }
+      },
+      "UserRegister": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "email del usuario",
+            "example": "admin@mail.com"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "description": "contraseña"
+          },
+          "passwordConfirm": {
+            "type": "string",
+            "format": "password",
+            "description": "confirmar contraseña"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

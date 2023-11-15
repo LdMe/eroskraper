@@ -1,15 +1,23 @@
 import express from "express";
-
+import swaggerUi from "swagger-ui-express";
+import fs from "fs";
+import path from "path";
+import cors from "cors";
 import productController from "./controllers/productController.js";
 import authController from "./controllers/authController.js";
 
 import { isLoggedIn } from "./middlewares/authMiddleware.js";
 
-const app = express();
+const swaggerJson = JSON.parse(
+    fs.readFileSync(`${path.resolve()}/openapi.json`, "utf-8")
+  );
 
+const app = express();
+app.use(cors());
 app.use(express.urlencoded({extended:true}))
 app.use(express.json());
-
+// poner en marcha el swagger con el archivo openapi.json en la raíz del proyecto
+app.use('/api-docs/', swaggerUi.serve, swaggerUi.setup(swaggerJson));
 app.get("/",async (req,res)=>{
     try{
         const products = await productController.getAllProducts();       
